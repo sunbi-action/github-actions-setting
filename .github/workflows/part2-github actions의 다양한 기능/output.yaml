@@ -1,0 +1,38 @@
+#output
+#한 job에서 생성된 데이터
+#동일한 job의 step, 다른 job 데이터 공유
+
+#여러 step과 job간에 데이터를 손쉽게 전달
+
+#artifact - 파일 또는 파일 모음으로 데이터 공유 가능
+#output - 단순한 값 전달할 때 사용, key-value 형태로 데이터
+
+#echo "{key}={value}" >> $GITHUB_OUTPUT
+#echo name=github-actions >> $GITHUB_OUTPUT
+
+#아웃풋을 사용하려면 - 아웃풋이 정의된 스텝의 고유 id를 사용해야함
+#다른 잡에서 아웃풋을 사용하려면 - needs, job level outputs
+
+name: output
+on: push
+
+jobs:
+  create-output:
+    runs-on: ubuntu-latest
+    outputs:
+      test: ${{ steps.check-output.outputs.test }}
+    steps:
+      - name: echo output
+        id: check-output
+        run: |
+          echo "test=hello" >> $GITHUB_OUTPUT
+      - name: check output
+        run: |
+          echo ${{ steps.check-output.outputs.test }}
+
+  get-output:
+    needs: [create-output]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get output
+        run: echo ${{ needs.create-output.outputs.test }}

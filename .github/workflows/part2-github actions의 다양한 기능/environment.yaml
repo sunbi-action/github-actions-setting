@@ -1,0 +1,29 @@
+#environment
+#특정 환경에서만 사용 가능한 환경변수와 시크릿 관리
+#레포지토리에서 정의할 수 있음
+
+#환경변수와 시크릿
+#-organization level
+#-repository level
+#-environment level
+
+name: environment
+on: push
+
+jobs:
+  get-env:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check env & secret
+        run: |
+          echo ${{ vars.level }}
+          echo ${{ secrets.key }}
+
+  get-env-dev:
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: check env & secret
+        run: |
+          echo ${{ vars.level }}
+          echo ${{ secrets.key }}

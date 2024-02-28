@@ -1,0 +1,9 @@
+#if condition
+#특정 조건이 충족될 때 실행되도록 하는 데 사용
+
+#filter와 비교
+#filter - workflow 트리거를 더 세밀하게 제어
+#ex) push event, branch filter:[dev, master], dev/master branch일 때만 트리거
+
+#if condition - workflow가 트리거된 이후 job과 step 세밀하게 제어
+#ex) dev branch일 때 첫 번째 job만 실행, master branch일 때 두 번째 job의 세 번째 step skip

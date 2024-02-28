@@ -1,0 +1,23 @@
+name: checkout
+on: workflow_dispatch
+
+#checkout
+#깃헙 레포지토리를 가져와 작업을 수행
+#깃헙 마켓플레이스에 정의된 공식 액션
+#테스트 및 빌드 작업 수행
+#레포지토리 내용을 CICD 워크플로우에서 사용
+
+jobs:
+  no-checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check file list
+        run: cat README.md #checkout을 사용하지 않았기 때문에 실패함.
+
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: user checkout action
+        uses: actions/checkout@v4 #checkout명령어를 사용함으로써 github repository를 가져옴.
+      - name: check file list
+        run: cat README.md

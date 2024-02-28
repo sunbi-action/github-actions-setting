@@ -1,0 +1,22 @@
+#re-run
+#과거에 실행된 워크플로우를 재실행
+#성공, 실패 여부와 상관없이 재실행 가능
+#트리거된 그 시점을 다시 실행
+
+#동작 방식
+#step1. 과거에 이미 실행된 워크플로우가 있음
+#step2. 파일을 수정
+#step3. 과거에 실행된 워크플로우를 리런해도 수정한 내용은 반영되지 않음
+#step4. 수정한 파일이 포함된 후에 워크플로우가 트리거되어야 반영
+
+name: re-run
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4  #파일의 내용을 읽어옴.
+      - name: cat readme
+        run: cat README.md  #파일의 내용을 출력함
